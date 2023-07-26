@@ -45,6 +45,8 @@
 
 <script>
 export default {
+  emitsL : ['save-data'],
+
   data() {
     return {
       firstName: '',
@@ -65,7 +67,7 @@ export default {
         areas: this.areas,
       };
 
-      console.log(formData, 'formData');
+      this.$emit('save-data', formData);
     }
   },
 }
