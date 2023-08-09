@@ -1,7 +1,9 @@
 export default {
-  registerCoach(context, data) {
+  async registerCoach(context, data) {
+    console.log(data, 'data');
+
+    const userId = context.rootGetters.userId;
     const coachData = {
-      id: context.rootGetters.userId,
       firstName: data.firstName,
       lastName: data.lastName,
       description: data.description,
@@ -9,6 +11,20 @@ export default {
       areas: data.areas,
     };
 
-    context.commit('registerCoach', coachData);
+    const response = await fetch(`https://coaches-c1610-default-rtdb.firebaseio.com/coaches/${userId}.json`, {
+      method: 'PUT',
+      body: JSON.stringify(coachData),
+    });
+
+    // const responseData = await response.json();
+
+    if (!response.ok) {
+      console.log(response.message);
+    }
+
+    context.commit('registerCoach', {
+      ...coachData,
+      id: userId,
+    });
   },
 };
