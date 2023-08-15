@@ -46,7 +46,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 form {
   margin: 1rem;
   border: 1px solid #ccc;
